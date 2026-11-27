@@ -1,0 +1,261 @@
+<!doctype html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ContaMZ — Contabilidade Simples e Cálculo de IVA em Moçambique</title>
+  <meta name="description" content="ContaMZ ajuda pequenos negócios em Moçambique a registar vendas e despesas, simular o IVA incluído (16% ou isento) e organizar movimentos offline.">
+  <meta name="keywords" content="contabilidade Moçambique, cálculo de IVA 16%, gestão de pequenos negócios, M-Pesa, e-Mola, metical, PGC-PE, ContaMZ">
+  <meta name="author" content="ContaMZ">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="geo.region" content="MZ">
+  <meta name="theme-color" content="#102b46">
+  <link rel="canonical" href="https://usecontamz.vercel.app/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_MZ">
+  <meta property="og:site_name" content="ContaMZ">
+  <meta property="og:url" content="https://usecontamz.vercel.app/">
+  <meta property="og:title" content="ContaMZ — Contabilidade simples para pequenos negócios em Moçambique">
+  <meta property="og:description" content="Simule o IVA de 16% em segundos e registe vendas e despesas em meticais (MT), com suporte a M-Pesa, e-Mola, mKesh e funcionamento offline.">
+  <meta property="og:image" content="https://usecontamz.vercel.app/icons/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ContaMZ — Simulação de IVA e contabilidade simples para pequenos negócios">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ContaMZ — Contabilidade simples para pequenos negócios">
+  <meta name="twitter:description" content="Registe vendas e despesas em MT, separe o IVA incluído e trabalhe mesmo sem internet.">
+  <meta name="twitter:image" content="https://usecontamz.vercel.app/icons/og-cover.png">
+  <meta name="twitter:image:alt" content="ContaMZ — Contabilidade digital em Moçambique">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "ContaMZ",
+        "url": "https://usecontamz.vercel.app/",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web, Android, iOS",
+        "inLanguage": "pt-MZ",
+        "description": "Ferramenta em português para ajudar pequenos negócios em Moçambique a registar vendas e despesas e simular o IVA incluído.",
+        "areaServed": {
+          "@type": "Country",
+          "name": "Mozambique"
+        },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "MZN"
+        }
+      },
+      {
+        "@type": "Organization",
+        "name": "ContaMZ",
+        "url": "https://usecontamz.vercel.app/",
+        "logo": "https://usecontamz.vercel.app/icons/icon-512.png",
+        "sameAs": [
+          "https://wa.me/258856718244"
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo-principal">Saltar para o conteúdo principal</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">C</span><span>Conta<span class="brand-accent">MZ</span></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#funcionalidades">Funcionalidades</a>
+      <a href="#roteiro">Roadmap</a>
+      <span class="offline-pill" id="network-status" role="status" hidden>Offline</span>
+      <button class="install-button" id="pwa-install-btn" type="button" hidden>Instalar app</button>
+      <a class="nav-cta" href="app.html">Abrir aplicação <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+
+  <main id="conteudo-principal" tabindex="-1">
+    <p class="sr-only" id="pwa-status-msg" aria-live="polite"></p>
+
+    <section class="hero" id="topo" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <span class="eyebrow">CONTABILIDADE DIGITAL · MOÇAMBIQUE</span>
+        <h1 id="hero-title">Cada venda.<br><em>O IVA já separado.</em></h1>
+        <p>Uma ferramenta em português para ajudar pequenos negócios a organizar vendas, despesas e informação contabilística — de forma simples e prática.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="app.html">Experimentar a aplicação <span aria-hidden="true">→</span></a>
+          <a class="text-link" href="#funcionalidades">Conhecer o ContaMZ</a>
+        </div>
+        <div class="hero-note">
+          <span class="dot" aria-hidden="true"></span> Protótipo em desenvolvimento · Acesso gratuito e funciona offline
+        </div>
+      </div>
+
+      <div class="hero-panel" role="region" aria-labelledby="sim-heading">
+        <div class="panel-top">
+          <span id="sim-heading">SIMULAÇÃO DE VENDA</span>
+          <span class="live-pill">INTERATIVA</span>
+        </div>
+
+        <label class="panel-label" for="sim-amount">Valor recebido pelo negócio (MT)</label>
+        <div class="panel-input-row">
+          <input
+            id="sim-amount"
+            class="panel-amount-input"
+            type="number"
+            min="0"
+            step="0.01"
+            value="1000"
+            inputmode="decimal"
+            aria-describedby="sim-foot-note"
+          >
+          <span class="panel-currency" aria-hidden="true">MT</span>
+        </div>
+
+        <div class="panel-controls" aria-label="Atalhos de simulação">
+          <div class="panel-presets" role="group" aria-label="Valores rápidos">
+            <button type="button" class="panel-chip" data-sim-preset="500">500</button>
+            <button type="button" class="panel-chip" data-sim-preset="1000">1.000</button>
+            <button type="button" class="panel-chip" data-sim-preset="2500">2.500</button>
+            <button type="button" class="panel-chip" data-sim-preset="5000">5.000</button>
+          </div>
+          <div class="panel-rates" role="group" aria-label="Taxa de IVA">
+            <button type="button" class="panel-chip is-active" data-sim-rate="16" aria-pressed="true">IVA 16%</button>
+            <button type="button" class="panel-chip" data-sim-rate="0" aria-pressed="false">Isento</button>
+          </div>
+        </div>
+
+        <div class="panel-results" aria-live="polite">
+          <div class="panel-line">
+            <span>Receita sem IVA</span>
+            <strong id="sim-net">862,07 MT</strong>
+          </div>
+          <div class="panel-line panel-line-accent">
+            <span id="sim-vat-label">IVA incluído (16%)</span>
+            <strong id="sim-vat">137,93 MT</strong>
+          </div>
+        </div>
+
+        <div class="panel-foot" id="sim-foot-note">Cálculo em tempo real com preço final incluindo IVA.</div>
+        <a class="panel-link" id="sim-app-link" href="app.html?valor=1000.00&taxa=16">Registar este valor na aplicação <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="Destaques do ContaMZ">
+      <div><strong>Em português</strong><span>Feito para o contexto moçambicano</span></div>
+      <div><strong>IVA simplificado</strong><span>Simulações de valores com IVA</span></div>
+      <div><strong>Negócios locais</strong><span>Numerário e carteiras móveis</span></div>
+    </section>
+
+    <section class="section" id="funcionalidades" aria-labelledby="features-title">
+      <div class="section-heading">
+        <span class="eyebrow">O QUE É POSSÍVEL EXPLORAR</span>
+        <h2 id="features-title">Mais clareza na gestão<br>do seu negócio.</h2>
+        <p>O ContaMZ está a ser desenvolvido para aproximar a gestão diária dos pequenos negócios das práticas contabilísticas.</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card">
+          <span class="feature-number" aria-hidden="true">01</span>
+          <div class="feature-icon" aria-hidden="true">％</div>
+          <h3>Cálculo de IVA</h3>
+          <p>Simule o valor sem IVA e a parcela de IVA incluída no preço final, usando a taxa geral de 16% ou a opção isenta.</p>
+          <span class="status available">Disponível na demonstração</span>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number" aria-hidden="true">02</span>
+          <div class="feature-icon" aria-hidden="true">↗</div>
+          <h3>Registo de movimentos</h3>
+          <p>Registe, edite, pesquise e filtre vendas e despesas guardadas neste navegador, mesmo sem internet.</p>
+          <span class="status available">Demonstração local · Offline</span>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number" aria-hidden="true">03</span>
+          <div class="feature-icon" aria-hidden="true">▤</div>
+          <h3>Organização contabilística</h3>
+          <p>Estrutura preparada para evoluir para lançamentos, plano de contas e relatórios adaptados ao PGC-PE.</p>
+          <span class="status planned">Em validação</span>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number" aria-hidden="true">04</span>
+          <div class="feature-icon" aria-hidden="true">⇄</div>
+          <h3>Pagamentos locais</h3>
+          <p>O projecto considera numerário, transferências bancárias, M-Pesa, e-Mola e mKesh.</p>
+          <span class="status planned">Integração por desenvolver</span>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number" aria-hidden="true">05</span>
+          <div class="feature-icon" aria-hidden="true">▥</div>
+          <h3>Importação de extratos</h3>
+          <p>Conciliação de extratos bancários e carteiras móveis para reduzir o trabalho manual.</p>
+          <span class="status planned">Planeado</span>
+        </article>
+        <article class="feature-card">
+          <span class="feature-number" aria-hidden="true">06</span>
+          <div class="feature-icon" aria-hidden="true">☁</div>
+          <h3>Conta e sincronização</h3>
+          <p>Área de utilizador, cópias de segurança e sincronização entre dispositivos são etapas futuras.</p>
+          <span class="status planned">Planeado</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="callout" id="roteiro" aria-labelledby="roadmap-title">
+      <div>
+        <span class="eyebrow">PRÓXIMA ETAPA</span>
+        <h2 id="roadmap-title">Estamos a construir<br>com quem faz acontecer.</h2>
+        <p>O feedback de comerciantes, estudantes e profissionais de contabilidade é essencial para validar a ferramenta antes de uma utilização real.</p>
+        <a class="button light" href="https://wa.me/258856718244" target="_blank" rel="noopener">Enviar opinião pelo WhatsApp <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="roadmap" role="list" aria-label="Etapas do projeto">
+        <div class="road-item done" role="listitem">
+          <span aria-hidden="true">✓</span>
+          <div><strong>Protótipo e identidade</strong><small>Apresentação e simulador inicial</small></div>
+        </div>
+        <div class="road-item active" role="listitem">
+          <span aria-hidden="true">02</span>
+          <div><strong>Validação contabilística</strong><small>Rever contas, regras fiscais e relatórios</small></div>
+        </div>
+        <div class="road-item" role="listitem">
+          <span aria-hidden="true">03</span>
+          <div><strong>Contas e segurança</strong><small>Autenticação, base de dados e cópias de segurança</small></div>
+        </div>
+        <div class="road-item" role="listitem">
+          <span aria-hidden="true">04</span>
+          <div><strong>Lançamento público</strong><small>Testes finais e disponibilização estável</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="founder" aria-labelledby="project-title">
+      <div class="founder-mark" aria-hidden="true">C.</div>
+      <div>
+        <span class="eyebrow">O PROJECTO</span>
+        <h2 id="project-title">Uma ideia para digitalizar a contabilidade.</h2>
+        <p>O ContaMZ nasce da vontade de tornar ferramentas de organização financeira e contabilística mais acessíveis aos pequenos negócios em Moçambique.</p>
+        <a class="text-link" href="https://wa.me/258856718244" target="_blank" rel="noopener">Falar com a equipa <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand" href="#topo">
+      <span class="brand-mark" aria-hidden="true">C</span><span>Conta<span class="brand-accent">MZ</span></span>
+    </a>
+    <p>© 2026 ContaMZ · Protótipo em desenvolvimento</p>
+    <p class="disclaimer">O ContaMZ não substitui um contabilista certificado. As taxas, obrigações fiscais e classificações contabilísticas devem ser confirmadas junto da Autoridade Tributária e de um profissional habilitado.</p>
+  </footer>
+
+  <script src="pwa.js"></script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="pt-MZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Registo de Movimentos e Simulador de IVA — ContaMZ</title>
+  <meta name="description" content="Registe, edite, pesquise e filtre vendas e despesas em meticais (MT), com cálculo automático de IVA incluído a 16% e funcionamento offline.">
+  <meta name="keywords" content="simulador de IVA Moçambique, registo de vendas e despesas, controlo de caixa, M-Pesa, e-Mola, ContaMZ">
+  <meta name="author" content="ContaMZ">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="geo.region" content="MZ">
+  <meta name="theme-color" content="#102b46">
+  <link rel="canonical" href="https://usecontamz.vercel.app/app.html">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_MZ">
+  <meta property="og:site_name" content="ContaMZ">
+  <meta property="og:url" content="https://usecontamz.vercel.app/app.html">
+  <meta property="og:title" content="Aplicação ContaMZ — Registe vendas, despesas e IVA">
+  <meta property="og:description" content="Controle os movimentos diários do seu negócio em MT com cálculo imediato de IVA incluído, filtros por meio de pagamento e suporte offline.">
+  <meta property="og:image" content="https://usecontamz.vercel.app/icons/og-cover.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Aplicação ContaMZ — Registo de vendas, despesas e cálculo de IVA">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Aplicação ContaMZ — Registe vendas, despesas e IVA">
+  <meta name="twitter:description" content="Controle vendas, despesas e IVA em meticais (MT) diretamente no navegador e offline.">
+  <meta name="twitter:image" content="https://usecontamz.vercel.app/icons/og-cover.png">
+  <meta name="twitter:image:alt" content="Aplicação ContaMZ — Gestão financeira local">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+  <link rel="stylesheet" href="styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "name": "ContaMZ — Aplicação de Movimentos",
+        "url": "https://usecontamz.vercel.app/app.html",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web, Android, iOS",
+        "inLanguage": "pt-MZ",
+        "description": "Área prática para registar, editar, pesquisar e filtrar vendas e despesas em meticais com simulação de IVA incluído.",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "MZN"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Início",
+            "item": "https://usecontamz.vercel.app/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Aplicação",
+            "item": "https://usecontamz.vercel.app/app.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="app-body">
+  <a class="skip-link" href="#conteudo-principal">Saltar para o conteúdo principal</a>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">C</span><span>Conta<span class="brand-accent">MZ</span></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <span class="offline-pill" id="network-status" role="status" hidden>Offline</span>
+      <button class="install-button" id="pwa-install-btn" type="button" hidden>Instalar app</button>
+      <a href="index.html"><span aria-hidden="true">←</span> Página inicial</a>
+    </nav>
+  </header>
+
+  <main class="app-main" id="conteudo-principal" tabindex="-1">
+    <p class="sr-only" id="pwa-status-msg" aria-live="polite"></p>
+
+    <div class="app-heading">
+      <span class="eyebrow">ÁREA DE EXPERIÊNCIA</span>
+      <h1>Registe e acompanhe<br><em>os seus movimentos.</em></h1>
+      <p>Esta demonstração guarda os registos apenas neste navegador e dispositivo.</p>
+    </div>
+
+    <div class="app-layout">
+      <section class="app-card form-card" id="form-card" aria-labelledby="form-title">
+        <div class="card-heading">
+          <div>
+            <span class="eyebrow" id="form-eyebrow">NOVO MOVIMENTO</span>
+            <h2 id="form-title">Adicionar registo</h2>
+          </div>
+          <span class="card-symbol" id="form-symbol" aria-hidden="true">＋</span>
+        </div>
+
+        <form id="entry-form" novalidate>
+          <div class="form-error" id="form-error" role="alert" hidden></div>
+
+          <label for="kind">Tipo de movimento</label>
+          <select id="kind">
+            <option value="venda">Venda</option>
+            <option value="despesa">Despesa</option>
+          </select>
+
+          <label for="entry-date">Data do movimento</label>
+          <input id="entry-date" type="date" required>
+
+          <label for="description">Descrição</label>
+          <input id="description" maxlength="80" placeholder="Ex.: Venda de mercadoria" required autocomplete="off">
+
+          <label for="amount">Valor total (MT)</label>
+          <input id="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required>
+
+          <label for="vat">Tratamento do IVA</label>
+          <select id="vat">
+            <option value="16">IVA incluído — 16%</option>
+            <option value="0">Isento / sem IVA nesta simulação</option>
+          </select>
+
+          <div class="vat-preview" id="vat-preview" aria-live="polite">
+            <div>
+              <span>Valor sem IVA</span>
+              <strong id="preview-net">0,00 MT</strong>
+            </div>
+            <div>
+              <span>IVA estimado</span>
+              <strong id="preview-vat">0,00 MT</strong>
+            </div>
+          </div>
+
+          <label for="payment">Meio de pagamento</label>
+          <select id="payment">
+            <option value="Numerário">Numerário</option>
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="e-Mola">e-Mola</option>
+            <option value="mKesh">mKesh</option>
+            <option value="Banco">Banco</option>
+          </select>
+
+          <div class="form-actions">
+            <button class="button primary full" id="submit-btn" type="submit">Guardar movimento <span aria-hidden="true">→</span></button>
+            <button class="button secondary full" id="cancel-edit" type="button" hidden>Cancelar edição</button>
+          </div>
+          <p class="form-help">Os dados ficam guardados localmente no navegador e funcionam mesmo sem internet.</p>
+        </form>
+      </section>
+
+      <section class="app-content" aria-label="Resumo e movimentos">
+        <div class="summary-grid" role="region" aria-label="Totais">
+          <article class="summary-card">
+            <span id="sales-label">Total de vendas</span>
+            <strong id="sales-total">0,00 MT</strong>
+          </article>
+          <article class="summary-card">
+            <span id="expenses-label">Total de despesas</span>
+            <strong id="expenses-total">0,00 MT</strong>
+          </article>
+          <article class="summary-card highlight">
+            <span id="vat-label">IVA incluído nas vendas*</span>
+            <strong id="vat-total">0,00 MT</strong>
+          </article>
+        </div>
+
+        <div class="app-card">
+          <div class="card-heading activity-heading">
+            <div>
+              <span class="eyebrow">ACTIVIDADE</span>
+              <h2>Movimentos registados</h2>
+            </div>
+            <div class="activity-actions">
+              <span class="entries-count" id="entries-count" aria-live="polite">0 movimentos</span>
+              <button class="clear-button" id="clear-all" type="button">Limpar dados</button>
+            </div>
+          </div>
+
+          <div class="filter-bar" id="filter-bar" role="search" aria-label="Pesquisar e filtrar movimentos">
+            <div class="filter-field filter-search">
+              <label class="sr-only" for="filter-search">Pesquisar por descrição</label>
+              <input id="filter-search" type="search" placeholder="Pesquisar descrição...">
+            </div>
+            <div class="filter-field">
+              <label class="sr-only" for="filter-kind">Filtrar por tipo</label>
+              <select id="filter-kind">
+                <option value="all">Todos os tipos</option>
+                <option value="venda">Vendas</option>
+                <option value="despesa">Despesas</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label class="sr-only" for="filter-payment">Filtrar por meio de pagamento</label>
+              <select id="filter-payment">
+                <option value="all">Todos os meios</option>
+                <option value="Numerário">Numerário</option>
+                <option value="M-Pesa">M-Pesa</option>
+                <option value="e-Mola">e-Mola</option>
+                <option value="mKesh">mKesh</option>
+                <option value="Banco">Banco</option>
+              </select>
+            </div>
+            <div class="filter-field">
+              <label class="sr-only" for="filter-sort">Ordenar movimentos</label>
+              <select id="filter-sort">
+                <option value="date-desc">Mais recentes</option>
+                <option value="date-asc">Mais antigos</option>
+                <option value="amount-desc">Maior valor</option>
+                <option value="amount-asc">Menor valor</option>
+              </select>
+            </div>
+            <button class="reset-filters-button" id="clear-filters" type="button" hidden>Limpar filtros</button>
+          </div>
+
+          <div id="empty-state" class="empty-state">
+            Ainda não existem movimentos.<br>Adicione a sua primeira venda ou despesa.
+          </div>
+
+          <div id="no-results-state" class="empty-state" hidden>
+            Nenhum movimento corresponde aos filtros aplicados.<br>
+            <button class="inline-link-btn" id="empty-clear-filters" type="button">Repor filtros</button>
+          </div>
+
+          <div class="table-wrap">
+            <table id="entries-table" hidden>
+              <caption class="sr-only">Lista de movimentos financeiros registados</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Data</th>
+                  <th scope="col">Movimento</th>
+                  <th scope="col">Tipo</th>
+                  <th scope="col">Pagamento</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">IVA</th>
+                  <th scope="col" class="actions-col">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="entries-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="app-card note-card">
+          <strong>Nota importante</strong>
+          <p>*O resumo do IVA é uma simulação aritmética sobre valores totais introduzidos. Não calcula automaticamente IVA dedutível, imposto liquidado, apuramento fiscal, partidas dobradas nem declarações. Confirme o enquadramento de cada operação com um contabilista.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden>
+    <span id="toast-message"></span>
+    <button class="toast-undo" id="toast-undo" type="button" hidden>Desfazer</button>
+  </div>
+
+  <div
+    class="dialog-backdrop"
+    id="confirm-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="confirm-title"
+    aria-describedby="confirm-desc"
+    hidden
+  >
+    <div class="dialog-panel">
+      <h2 id="confirm-title">Apagar todos os movimentos?</h2>
+      <p id="confirm-desc">Esta ação remove todos os registos guardados neste navegador e não pode ser anulada.</p>
+      <div class="dialog-actions">
+        <button class="button secondary" id="confirm-cancel" type="button">Cancelar</button>
+        <button class="button danger" id="confirm-accept" type="button">Apagar tudo</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <a class="brand" href="index.html">
+      <span class="brand-mark" aria-hidden="true">C</span><span>Conta<span class="brand-accent">MZ</span></span>
+    </a>
+    <p>Protótipo experimental · Dados locais</p>
+  </footer>
+
+  <script src="pwa.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

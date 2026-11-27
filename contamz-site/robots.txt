@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Atualize o URL abaixo após publicar na Vercel (ou configurar o domínio próprio)
+Sitemap: https://usecontamz.vercel.app/sitemap.xml
